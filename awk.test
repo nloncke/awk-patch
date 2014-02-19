@@ -1,0 +1,58 @@
+#!/bin/bash
+
+echo 'test 1: handle old # comments'
+a.out '
+BEGIN {
+	# this should be recognized as a comment
+	for (i = 0; i < 10; i++) {
+	    # print integers 0 through 9
+	    print i;
+	}
+}' > temp1
+for i in `seq 0 9`; do echo $i; done > temp2
+cmp temp1 temp2 >/dev/null 2>&1 || echo 'Error: test 1 failed: 1..9' 2>&1
+
+
+echo 'test 2: handle new // comments'
+a.out '
+BEGIN {
+	// this should also be recognized as a comment
+	for (i = 0; i < 10; i++) {
+	    // print integers 0 through 9
+	    print i;
+	}
+}' > temp1
+for i in `seq 0 9`; do echo $i; done > temp2
+cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 2 failed: 1..9' 2>&1
+
+echo 'test 3: handle old and new comments, comment chars within comments'
+a.out '
+BEGIN {
+	## this should be recognized as a // comment
+	for (i = 0; i < 10; i++) {
+	    // print integers #0 through #9
+	    print i;
+	}
+}' > temp1
+for i in `seq 0 9`; do echo $i; done > temp2
+cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 3 failed: 1..9' 2>&1
+
+
+
+# echo 'test 1: count from 1 to 10'
+# a.out '
+# BEGIN { // count from 1 to 10
+# 	for (i from 1 to 10)
+# 		print i
+# }'>temp1
+# for i in `seq 1 10`; do echo $i; done >temp2
+# cmp temp1 temp2 >/dev/null 2>&1 || echo 'Error: test 1 failed: 1..10' 2>&1
+
+# echo 'test 2: count from 1 to 10 by 3'
+# a.out '
+# BEGIN {
+# 	for (i from 1 to 10 by 3)
+# 		print i
+# }' >temp1
+# for i in 1 4 7 10; do echo $i; done >temp2
+# cmp temp1 temp2 >/dev/null 2>&1 || echo 'Error: test 2 failed: 1..10 3' 2>&1
