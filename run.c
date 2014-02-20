@@ -31,6 +31,7 @@ THIS SOFTWARE.
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <sys/stat.h>
 #include "awk.h"
 #include "ytab.h"
 
@@ -1654,6 +1655,13 @@ FILE *openfile(int a, const char *us)
 
 	if (*s == '\0')
 		FATAL("null file name in print or getline");
+	
+	/* HERE IS MY ADDITION TO THE CODE */
+	if (isDir(s))
+		FATAL("%s is a directory", s);
+		/* fprintf(stderr, "%s is a directory \n", s); */
+	/* MY ADDITION TO THIS BLOCK ENDS HERE */
+
 	for (i=0; i < nfiles; i++)
 		if (files[i].fname && strcmp(s, files[i].fname) == 0) {
 			if (a == files[i].mode || (a==APPEND && files[i].mode==GT))
@@ -1955,4 +1963,16 @@ void backsub(char **pb_ptr, char **sptr_ptr)	/* handle \\& variations */
 
 	*pb_ptr = pb;
 	*sptr_ptr = sptr;
+}
+
+/* Returns 1 if file specifies a directory, 0 otherwise */
+int isDir(const char *filename)
+{
+	struct stat statusbuf;
+	if (stat(filename, &statusbuf == 0) {
+		return (S_ISDIR(statusbuf.st_mode));
+	}
+	/* error using stat */
+	else
+		FATAL("encountered error using stat() system call");
 }

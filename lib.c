@@ -142,6 +142,12 @@ int getrec(char **pbuf, int *pbufsize, int isrecord)	/* get next input record */
 			   dprintf( ("opening file %s\n", file) );
 			if (*file == '-' && *(file+1) == '\0')
 				infile = stdin;
+
+	        /* HERE IS MY ADDITION TO THE CODE */
+			else if (isDir(file))
+				FATAL("%s is a directory", s);
+            /* MY ADDITION TO THIS BLOCK ENDS HERE */
+
 			else if ((infile = fopen(file, "r")) == NULL)
 				FATAL("can't open file %s", file);
 			setfval(fnrloc, 0.0);

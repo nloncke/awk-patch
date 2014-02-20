@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
 				if (npfile >= MAX_PFILE - 1)
 					FATAL("too many -f options"); 
 
-				/* MAKE CALL TO FUNCTION HERE, POSSIBLY? */
+				/* MAKE CALL TO isDir() FUNCTION HERE, POSSIBLY? */
 
 				pfile[npfile++] = &argv[1][2];
 
@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 				if (npfile >= MAX_PFILE - 1)
 					FATAL("too many -f options"); 
 
-				/* MAKE CALL TO FUNCTION HERE, ALSO? */
+				/* MAKE CALL TO isDir() FUNCTION HERE, ALSO? */
 
 				pfile[npfile++] = argv[1];
 			}
@@ -199,6 +199,12 @@ int pgetc(void)		/* get 1 character from awk program */
 				return EOF;
 			if (strcmp(pfile[curpfile], "-") == 0)
 				yyin = stdin;
+
+	        /* HERE IS MY ADDITION TO THE CODE */
+			else if (isDir(pfile[curpfile]))
+				FATAL("%s is a directory", pfile[curpfile]);
+            /* MY ADDITION TO THIS BLOCK ENDS HERE */
+
 			else if ((yyin = fopen(pfile[curpfile], "r")) == NULL)
 				FATAL("can't open file %s", pfile[curpfile]);
 			lineno = 1;
