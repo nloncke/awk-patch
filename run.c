@@ -1969,7 +1969,7 @@ void backsub(char **pb_ptr, char **sptr_ptr)	/* handle \\& variations */
 int isDir(const char *filename)
 {
 	struct stat statusbuf;
-	if (stat(filename, &statusbuf == 0) {
+	if (stat(filename, &statusbuf) == 0) {
 		return (S_ISDIR(statusbuf.st_mode));
 	}
 	/* error using stat */

@@ -145,7 +145,7 @@ int getrec(char **pbuf, int *pbufsize, int isrecord)	/* get next input record */
 
 	        /* HERE IS MY ADDITION TO THE CODE */
 			else if (isDir(file))
-				FATAL("%s is a directory", s);
+				FATAL("%s is a directory", file);
             /* MY ADDITION TO THIS BLOCK ENDS HERE */
 
 			else if ((infile = fopen(file, "r")) == NULL)

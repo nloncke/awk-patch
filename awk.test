@@ -25,6 +25,7 @@ BEGIN {
 for i in `seq 0 9`; do echo $i; done > temp2
 cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 2 failed: 1..9' 2>&1
 
+
 echo 'test 3: handle old and new comments, comment chars within comments'
 a.out '
 BEGIN {
@@ -37,6 +38,32 @@ BEGIN {
 for i in `seq 0 9`; do echo $i; done > temp2
 cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 3 failed: 1..9' 2>&1
 
+
+echo 'test 4: handle current directory input'
+a.out '
+	// what is in here does not actually matter
+	{ print }
+' . 2> temp1
+echo -e "a.out: . is a directory\n source line number 4" > temp2
+cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 4 failed: input directory should cause fatal error' 2>&1
+
+
+echo 'test 5: handle other directory input'
+a.out '
+	// what is in here does not actually matter
+	{ print }
+' tests/ 2> temp1
+echo -e "a.out: tests/ is a directory\n source line number 4" > temp2
+cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 4 failed: input directory should cause fatal error' 2>&1
+
+
+echo 'test 6: handle directory above input'
+a.out "
+	// what's in here doesn't actually matter
+	{ print }
+" ../project 2> temp1
+echo -e "a.out: ../project is a directory\n source line number 4" > temp2
+cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 4 failed: input directory should cause fatal error' 2>&1
 
 
 # echo 'test 1: count from 1 to 10'
