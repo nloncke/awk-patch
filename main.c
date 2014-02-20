@@ -94,13 +94,20 @@ int main(int argc, char *argv[])
 			if (argv[1][2] != 0) {  /* arg is -fsomething */
 				if (npfile >= MAX_PFILE - 1)
 					FATAL("too many -f options"); 
+
+				// MAKE CALL TO FUNCTION HERE, POSSIBLY?
+
 				pfile[npfile++] = &argv[1][2];
+
 			} else {		/* arg is -f something */
 				argc--; argv++;
 				if (argc <= 1)
 					FATAL("no program filename");
 				if (npfile >= MAX_PFILE - 1)
 					FATAL("too many -f options"); 
+
+				// MAKE CALL TO FUNCTION HERE, ALSO?
+
 				pfile[npfile++] = argv[1];
 			}
 			break;
