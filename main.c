@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
 				if (npfile >= MAX_PFILE - 1)
 					FATAL("too many -f options"); 
 
-				// MAKE CALL TO FUNCTION HERE, POSSIBLY?
+				/* MAKE CALL TO FUNCTION HERE, POSSIBLY? */
 
 				pfile[npfile++] = &argv[1][2];
 
@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 				if (npfile >= MAX_PFILE - 1)
 					FATAL("too many -f options"); 
 
-				// MAKE CALL TO FUNCTION HERE, ALSO?
+				/* MAKE CALL TO FUNCTION HERE, ALSO? */
 
 				pfile[npfile++] = argv[1];
 			}
