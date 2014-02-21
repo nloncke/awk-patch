@@ -2,7 +2,7 @@
 #include "awk.h"
 #include "ytab.h"
 
-static char *printname[93] = {
+static char *printname[96] = {
 	(char *) "FIRSTTOKEN",	/* 258 */
 	(char *) "PROGRAM",	/* 259 */
 	(char *) "PASTAT",	/* 260 */
@@ -83,23 +83,26 @@ static char *printname[93] = {
 	(char *) "NUMBER",	/* 335 */
 	(char *) "STRING",	/* 336 */
 	(char *) "REGEXPR",	/* 337 */
-	(char *) "GETLINE",	/* 338 */
-	(char *) "SUBSTR",	/* 339 */
-	(char *) "SPLIT",	/* 340 */
-	(char *) "RETURN",	/* 341 */
-	(char *) "WHILE",	/* 342 */
-	(char *) "CAT",	/* 343 */
-	(char *) "UMINUS",	/* 344 */
-	(char *) "NOT",	/* 345 */
-	(char *) "POWER",	/* 346 */
-	(char *) "INCR",	/* 347 */
-	(char *) "DECR",	/* 348 */
-	(char *) "INDIRECT",	/* 349 */
-	(char *) "LASTTOKEN",	/* 350 */
+	(char *) "FROM",	/* 338 */
+	(char *) "TO",	/* 339 */
+	(char *) "BY",	/* 340 */
+	(char *) "GETLINE",	/* 341 */
+	(char *) "SUBSTR",	/* 342 */
+	(char *) "SPLIT",	/* 343 */
+	(char *) "RETURN",	/* 344 */
+	(char *) "WHILE",	/* 345 */
+	(char *) "CAT",	/* 346 */
+	(char *) "UMINUS",	/* 347 */
+	(char *) "NOT",	/* 348 */
+	(char *) "POWER",	/* 349 */
+	(char *) "INCR",	/* 350 */
+	(char *) "DECR",	/* 351 */
+	(char *) "INDIRECT",	/* 352 */
+	(char *) "LASTTOKEN",	/* 353 */
 };
 
 
-Cell *(*proctab[93])(Node **, int) = {
+Cell *(*proctab[96])(Node **, int) = {
 	nullproc,	/* FIRSTTOKEN */
 	program,	/* PROGRAM */
 	pastat,	/* PASTAT */
@@ -180,6 +183,9 @@ Cell *(*proctab[93])(Node **, int) = {
 	nullproc,	/* NUMBER */
 	nullproc,	/* STRING */
 	nullproc,	/* REGEXPR */
+	fromstat,	/* FROM */
+	nullproc,	/* TO */
+	nullproc,	/* BY */
 	awkgetline,	/* GETLINE */
 	substr,	/* SUBSTR */
 	split,	/* SPLIT */

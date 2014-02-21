@@ -117,19 +117,22 @@
      NUMBER = 335,
      STRING = 336,
      REGEXPR = 337,
-     GETLINE = 338,
-     SUBSTR = 339,
-     SPLIT = 340,
-     RETURN = 341,
-     WHILE = 342,
-     CAT = 343,
-     UMINUS = 344,
-     NOT = 345,
-     POWER = 346,
-     INCR = 347,
-     DECR = 348,
-     INDIRECT = 349,
-     LASTTOKEN = 350
+     FROM = 338,
+     TO = 339,
+     BY = 340,
+     GETLINE = 341,
+     SUBSTR = 342,
+     SPLIT = 343,
+     RETURN = 344,
+     WHILE = 345,
+     CAT = 346,
+     UMINUS = 347,
+     NOT = 348,
+     POWER = 349,
+     INCR = 350,
+     DECR = 351,
+     INDIRECT = 352,
+     LASTTOKEN = 353
    };
 #endif
 /* Tokens.  */
@@ -213,19 +216,22 @@
 #define NUMBER 335
 #define STRING 336
 #define REGEXPR 337
-#define GETLINE 338
-#define SUBSTR 339
-#define SPLIT 340
-#define RETURN 341
-#define WHILE 342
-#define CAT 343
-#define UMINUS 344
-#define NOT 345
-#define POWER 346
-#define INCR 347
-#define DECR 348
-#define INDIRECT 349
-#define LASTTOKEN 350
+#define FROM 338
+#define TO 339
+#define BY 340
+#define GETLINE 341
+#define SUBSTR 342
+#define SPLIT 343
+#define RETURN 344
+#define WHILE 345
+#define CAT 346
+#define UMINUS 347
+#define NOT 348
+#define POWER 349
+#define INCR 350
+#define DECR 351
+#define INDIRECT 352
+#define LASTTOKEN 353
 
 
 
@@ -239,13 +245,13 @@ typedef union YYSTYPE
 
 	Node	*p;
 	Cell	*cp;
-	int	i;
+	int      i;
 	char	*s;
 
 
 
 /* Line 2068 of yacc.c  */
-#line 249 "y.tab.h"
+#line 255 "y.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

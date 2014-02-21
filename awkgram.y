@@ -129,9 +129,9 @@ for:
 		{ --inloop; $$ = stat4(FOR, $3, NIL, $7, $10); }
 	| FOR '(' varname IN varname rparen {inloop++;} stmt
 		{ --inloop; $$ = stat3(IN, $3, makearr($5), $8); }
-	| FOR '(' varname FROM term TO term BY term rparen {inloop++} stmt
-	    {--inloop; $$ = stat5(BY, $3, $5, $7, $9, $12); }
-	| FOR '(' varname FROM term TO term rparen {inloop++} stmt
+	| FOR '(' varname FROM term TO term BY term rparen {inloop++;} stmt
+	    {--inloop; $$ = stat5(FROM, $3, $5, $7, $9, $12); }
+	| FOR '(' varname FROM term TO term rparen {inloop++;} stmt
 	    {--inloop; $$ = stat5(FROM, $3, $5, $7, NIL, $10); }
 	;
 

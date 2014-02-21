@@ -54,7 +54,7 @@ a.out '
 	{ print }
 ' tests/ 2> temp1
 echo -e "a.out: tests/ is a directory\n source line number 4" > temp2
-cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 4 failed: input directory should cause fatal error' 2>&1
+cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 5 failed: input directory should cause fatal error' 2>&1
 
 
 echo 'test 6: handle directory above input'
@@ -63,23 +63,44 @@ a.out "
 	{ print }
 " ../project 2> temp1
 echo -e "a.out: ../project is a directory\n source line number 4" > temp2
-cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 4 failed: input directory should cause fatal error' 2>&1
+cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 6 failed: input directory should cause fatal error' 2>&1
 
 
-# echo 'test 1: count from 1 to 10'
-# a.out '
-# BEGIN { // count from 1 to 10
-# 	for (i from 1 to 10)
-# 		print i
-# }'>temp1
-# for i in `seq 1 10`; do echo $i; done >temp2
-# cmp temp1 temp2 >/dev/null 2>&1 || echo 'Error: test 1 failed: 1..10' 2>&1
+echo 'test 7: process normally, input not necessary'
+a.out '
+       // what is in here does not matter
+       BEGIN { print "hello there" }
+' ../project > temp1
+echo "hello there" > temp2
+cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 7 failed: input directory should NOT cause fatal error' 2>&1
 
-# echo 'test 2: count from 1 to 10 by 3'
-# a.out '
-# BEGIN {
-# 	for (i from 1 to 10 by 3)
-# 		print i
-# }' >temp1
-# for i in 1 4 7 10; do echo $i; done >temp2
-# cmp temp1 temp2 >/dev/null 2>&1 || echo 'Error: test 2 failed: 1..10 3' 2>&1
+
+echo 'test 8: count from 1 to 10'
+a.out '
+BEGIN { // count from 1 to 10
+	for (i from 1 to 10)
+		print i
+}' > temp1
+for i in `seq 1 10`; do echo $i; done > temp2
+cmp temp1 temp2 >/dev/null 2>&1 || echo 'Error: test 8 failed: 1..10' 2>&1
+
+
+echo 'test 9: count from 1 to 10 by 3'
+a.out '
+BEGIN {
+	for (i from 1 to 10 by 3)
+		print i;
+}' > temp1
+for i in 1 4 7 10; do echo $i; done > temp2
+cmp temp1 temp2 >/dev/null 2>&1 || echo 'Error: test 9 failed: 1..10 by 3' 2>&1
+
+
+echo 'test 10: count from 1 to 10 by 2'
+a.out '
+BEGIN { i = 5;
+        for (i from 1 to 10 by 2)
+		print i
+}' > temp1
+for i in 1 3 5 7 9; do echo $i; done > temp2
+cmp temp1 temp2 >/dev/null 2>&1 || echo 'Error: test 10 failed: 1..10 by 2' 2>&1
+

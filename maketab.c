@@ -92,6 +92,7 @@ struct xx
 	{ FOR, "forstat", "for(" },
 	{ DO, "dostat", "do" },
 	{ IN, "instat", "instat" },
+	{ FROM, "fromstat", "fromstat" },
 	{ NEXT, "jump", "next" },
 	{ NEXTFILE, "jump", "nextfile" },
 	{ EXIT, "jump", "exit" },

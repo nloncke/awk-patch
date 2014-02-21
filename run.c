@@ -1445,7 +1445,7 @@ Cell *fromstat(Node **a, int n)	/* for (a[0] from a[1] to a[2] by a[3]) a[4] */
 	Cell *cLo;
 	Cell *cHi;
 	Cell *cIncr;
-	Cell *body;
+	Cell *body = NULL;
 	Awkfloat lo, hi, incr, var;
 
 	cVar = execute(a[0]);  /* variable name */
@@ -1463,7 +1463,7 @@ Cell *fromstat(Node **a, int n)	/* for (a[0] from a[1] to a[2] by a[3]) a[4] */
 	}
 
 	for (var = lo; var <= hi; var += incr)	{
-		setfvar(cVar, var);   /* reset variable */
+		setfval(cVar, var);   /* reset variable */
 
 		body = execute(a[4]);
 		if (isbreak(body))		/* turn off break */
