@@ -93,6 +93,22 @@ Node *node4(int a, Node *b, Node *c, Node *d, Node *e)
 	return(x);
 }
 
+/* HERE IS MY ADDITION TO THE CODE */
+Node *node5(int a, Node *b, Node *c, Node *d, Node *e, Node *f)
+{
+	Node *x;
+
+	x = nodealloc(5);
+	x->nobj = a;
+	x->narg[0] = b;
+	x->narg[1] = c;
+	x->narg[2] = d;
+	x->narg[3] = e;
+	x->narg[4] = f;
+	return(x);
+}
+/* MY ADDITION TO THIS BLOCK ENDS HERE */
+
 Node *stat1(int a, Node *b)
 {
 	Node *x;
@@ -128,6 +144,17 @@ Node *stat4(int a, Node *b, Node *c, Node *d, Node *e)
 	x->ntype = NSTAT;
 	return(x);
 }
+
+/* HERE IS MY ADDITION TO THE CODE */
+Node *stat5(int a, Node *b, Node *c, Node *d, Node *e, Node *f)
+{
+	Node *x;
+
+	x = node5(a,b,c,d,e,f);
+	x->ntype = NSTAT;
+	return(x);
+}
+/* MY ADDITION TO THIS BLOCK ENDS HERE */
 
 Node *op1(int a, Node *b)
 {

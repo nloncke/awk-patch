@@ -1438,6 +1438,44 @@ Cell *forstat(Node **a, int n)	/* for (a[0]; a[1]; a[2]) a[3] */
 	}
 }
 
+/* HERE IS MY ADDITION TO THE CODE */
+Cell *fromstat(Node **a, int n)	/* for (a[0] from a[1] to a[2] by a[3]) a[4] */
+{
+	Cell *cVar;
+	Cell *cLo;
+	Cell *cHi;
+	Cell *cIncr;
+	Cell *body;
+	Awkfloat lo, hi, incr, var;
+
+	cVar = execute(a[0]);  /* variable name */
+	cLo = execute(a[1]);
+	cHi = execute(a[2]);
+	lo = getfval(cLo);
+	hi = getfval(cHi);
+
+	/* handle optional by expression, default increment = 1 */
+	if (a[3] == NULL)
+		incr = 1;
+	else {
+		cIncr = execute(a[3]);
+		incr = getfval(cIncr);
+	}
+
+	for (var = lo; var <= hi; var += incr)	{
+		setfvar(cVar, var);   /* reset variable */
+
+		body = execute(a[4]);
+		if (isbreak(body))		/* turn off break */
+			return True;
+		if (isnext(body) || isexit(body) || isret(body))
+			return(body);
+	}
+	return body;
+}
+/* MY ADDITION TO THIS BLOCK ENDS HERE */
+
+
 Cell *instat(Node **a, int n)	/* for (a[0] in a[1]) a[2] */
 {
 	Cell *x, *vp, *arrayp, *cp, *ncp;

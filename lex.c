@@ -43,12 +43,15 @@ typedef struct Keyword {
 	int	type;
 } Keyword;
 
+/* I ADDED FROM, BY, AND TO TO THE KEYWORDS LIST */
+
 Keyword keywords[] ={	/* keep sorted: binary searched */
 	{ "BEGIN",	XBEGIN,		XBEGIN },
 	{ "END",	XEND,		XEND },
 	{ "NF",		VARNF,		VARNF },
 	{ "atan2",	FATAN,		BLTIN },
 	{ "break",	BREAK,		BREAK },
+	{ "by",     BY,         BY },
 	{ "close",	CLOSE,		CLOSE },
 	{ "continue",	CONTINUE,	CONTINUE },
 	{ "cos",	FCOS,		BLTIN },
@@ -59,6 +62,7 @@ Keyword keywords[] ={	/* keep sorted: binary searched */
 	{ "exp",	FEXP,		BLTIN },
 	{ "fflush",	FFLUSH,		BLTIN },
 	{ "for",	FOR,		FOR },
+	{ "from",   FROM,       FROM },
 	{ "func",	FUNC,		FUNC },
 	{ "function",	FUNC,		FUNC },
 	{ "getline",	GETLINE,	GETLINE },
@@ -84,6 +88,7 @@ Keyword keywords[] ={	/* keep sorted: binary searched */
 	{ "sub",	SUB,		SUB },
 	{ "substr",	SUBSTR,		SUBSTR },
 	{ "system",	FSYSTEM,	BLTIN },
+	{ "to",     TO,         TO },
 	{ "tolower",	FTOLOWER,	BLTIN },
 	{ "toupper",	FTOUPPER,	BLTIN },
 	{ "while",	WHILE,		WHILE },

@@ -195,3 +195,6 @@ extern	FILE	*popen(const char *, const char *);
 extern	int	pclose(FILE *);
 
 extern  int isDir(const char *);
+extern  Node *node5(int, Node *, Node *, Node *, Node *, Node *);
+extern  Node *stat5(int, Node *, Node *, Node *, Node *, Node *);
+extern  Cell *fromstat(Node**, int);
