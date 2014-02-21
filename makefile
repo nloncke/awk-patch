@@ -32,7 +32,7 @@ CC = gcc -g -Wall -pedantic
 CC = gcc -O4 -Wall -pedantic -fno-strict-aliasing
 
 YACC = bison -d -y
-#YACC = yacc -d
+# YACC = yacc -d -S
 #YFLAGS = -d -S
 		# -S uses sprintf in yacc parser instead of sprint
 

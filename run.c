@@ -1462,7 +1462,8 @@ Cell *fromstat(Node **a, int n)	/* for (a[0] from a[1] to a[2] by a[3]) a[4] */
 		incr = getfval(cIncr);
 	}
 
-	for (var = lo; var <= hi; var += incr)	{
+
+	for (var = lo; ((incr > 0) && (var <= hi)) || ((incr < 0) && (var >= hi)); var += incr) {
 		setfval(cVar, var);   /* reset variable */
 
 		body = execute(a[4]);

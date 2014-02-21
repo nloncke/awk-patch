@@ -94,9 +94,6 @@ int main(int argc, char *argv[])
 			if (argv[1][2] != 0) {  /* arg is -fsomething */
 				if (npfile >= MAX_PFILE - 1)
 					FATAL("too many -f options"); 
-
-				/* MAKE CALL TO isDir() FUNCTION HERE, POSSIBLY? */
-
 				pfile[npfile++] = &argv[1][2];
 
 			} else {		/* arg is -f something */
@@ -105,9 +102,6 @@ int main(int argc, char *argv[])
 					FATAL("no program filename");
 				if (npfile >= MAX_PFILE - 1)
 					FATAL("too many -f options"); 
-
-				/* MAKE CALL TO isDir() FUNCTION HERE, ALSO? */
-
 				pfile[npfile++] = argv[1];
 			}
 			break;
