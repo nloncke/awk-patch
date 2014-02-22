@@ -48,22 +48,22 @@ echo -e "a.out: . is a directory\n source line number 4" > temp2
 cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 4 failed: input directory should cause fatal error' 2>&1
 
 
-echo 'test 5: handle other directory input'
-a.out '
-	// what is in here does not actually matter
-	{ print }
-' tests/ 2> temp1
-echo -e "a.out: tests/ is a directory\n source line number 4" > temp2
-cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 5 failed: input directory should cause fatal error' 2>&1
+# echo 'test 5: handle other directory input'
+# a.out '
+# 	// what is in here does not actually matter
+# 	{ print }
+# ' tests/ 2> temp1
+# echo -e "a.out: tests/ is a directory\n source line number 4" > temp2
+# cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 5 failed: input directory should cause fatal error' 2>&1
 
 
-echo 'test 6: handle directory above input'
-a.out "
-	// what's in here doesn't actually matter
-	{ print }
-" ../project 2> temp1
-echo -e "a.out: ../project is a directory\n source line number 4" > temp2
-cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 6 failed: input directory should cause fatal error' 2>&1
+# echo 'test 6: handle directory above input'
+# a.out "
+# 	// what's in here doesn't actually matter
+# 	{ print }
+# " ../project 2> temp1
+# echo -e "a.out: ../project is a directory\n source line number 4" > temp2
+# cmp temp1 temp2 > /dev/null 2>&1 || echo 'Error: test 6 failed: input directory should cause fatal error' 2>&1
 
 
 echo 'test 7: process normally, input not necessary'
@@ -158,3 +158,51 @@ for i in 0 -0.2 -0.4 -0.6 -0.8 -1; do echo $i; done > temp2
 cmp temp1 temp2 >/dev/null 2>&1 || echo 'Error: test 15 failed: lo > hi' 2>&1
 
 
+echo 'test 16: use var++ in loop command'
+a.out '
+BEGIN { 
+        for (i from 0 to (4 + i++) by (1 + i++))
+	   print i;
+}' > temp1
+for i in 0 2 4; do echo $i; done > temp2
+cmp temp1 temp2 >/dev/null 2>&1 || echo 'Error: test 16 failed: 1..5' 2>&1
+
+
+echo 'test 17: use var++ again in loop command'
+a.out '
+BEGIN { i = 0;
+        for (i from i++ to i++ by i++)
+	   print i;
+}' > temp1
+echo 0 > temp2
+cmp temp1 temp2 >/dev/null 2>&1 || echo 'Error: test 17 failed: just 0' 2>&1
+
+
+echo 'test 18: use multiplication with var in loop command'
+a.out '
+BEGIN { 
+        for (i from i to (i+2)*(i+2))
+	   print i;
+}' > temp1
+for i in 0 1 2 3 4; do echo $i; done > temp2
+cmp temp1 temp2 >/dev/null 2>&1 || echo 'Error: test 18 failed: 0..4' 2>&1
+
+
+echo 'test 19: use exponentiation with var in loop command'
+a.out '
+BEGIN { x = 3
+        for (i from 2 to x**(i--) by x**i)
+	   print i;
+}' > temp1
+for i in 2 5 8; do echo $i; done > temp2
+cmp temp1 temp2 >/dev/null 2>&1 || echo 'Error: test 19 failed: 2, 5, 8' 2>&1
+
+
+echo 'test 20: use ternary condition with var in loop command'
+a.out '
+BEGIN {
+        for (i from 1 to 10 by (i == 1 ? 2 : 1))
+	   print i;
+}' > temp1
+for i in 1 3 5 7 9; do echo $i; done > temp2
+cmp temp1 temp2 >/dev/null 2>&1 || echo 'Error: test 19 failed: 1..9 by 2' 2>&1

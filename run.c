@@ -1449,9 +1449,12 @@ Cell *fromstat(Node **a, int n)	/* for (a[0] from a[1] to a[2] by a[3]) a[4] */
 	Awkfloat lo, hi, incr, var;
 
 	cVar = execute(a[0]);  /* variable name */
-	cLo = execute(a[1]);
-	cHi = execute(a[2]);
+
+	cLo = execute(a[1]);   /* initial index value */
 	lo = getfval(cLo);
+	setfval(cVar, lo);
+
+	cHi = execute(a[2]);
 	hi = getfval(cHi);
 
 	/* handle optional by expression, default increment = 1 */
@@ -1463,7 +1466,7 @@ Cell *fromstat(Node **a, int n)	/* for (a[0] from a[1] to a[2] by a[3]) a[4] */
 	}
 
 
-	for (var = lo; ((incr > 0) && (var <= hi)) || ((incr < 0) && (var >= hi)); var += incr) {
+	for (var = lo; ((incr >= 0) && (var <= hi)) || ((incr <= 0) && (var >= hi)); var += incr) {
 		setfval(cVar, var);   /* reset variable */
 
 		body = execute(a[4]);
