@@ -2014,7 +2014,7 @@ int isDir(const char *filename)
 	if (stat(filename, &statusbuf) == 0) {
 		return (S_ISDIR(statusbuf.st_mode));
 	}
-	/* error using stat */
+	/* error using stat, just proceed */
 	else
-		FATAL("encountered error using stat() system call");
+		return 0;
 }
